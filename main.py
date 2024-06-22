@@ -3,6 +3,7 @@ import openai
 import time
 import tkinter as tk
 import json
+import random
 
 from vision import recognize_screen_content_detail
 
@@ -71,8 +72,11 @@ def display_subtitles(subtitles,root):
             comment = subtitle['comment']
         else:
             comment = subtitle
-        label = tk.Label(frame, text=comment, bg="black", fg="white", font=("Arial", 24))
-        label.place(x=root.winfo_screenwidth() + 100, y=yplus*forcount)  # 初期位置を設定
+        label = tk.Label(frame, text=comment, bg="black", fg="white", font=("Arial", 48))
+        label.update_idletasks()  # ラベルのサイズを確定
+        label_width = label.winfo_width()  # ラベルの幅を取得
+        random_x_start = random.randint(screen_width, screen_width + 100)
+        label.place(x=screen_width + label_width + (xplus*forcount) + random_x_start, y=yplus*forcount)  # 初期位置を画面右端の外側に設定
         labels.append(label)
         forcount += 1
     def move_subtitles():
