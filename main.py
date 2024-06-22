@@ -68,6 +68,10 @@ def display_subtitles(subtitles,root):
     frame.pack(expand=True, fill=tk.BOTH)
     labels = []
     yplus = 32
+    root.update_idletasks()  # これでウィンドウサイズが確定します
+    screen_width = root.winfo_screenwidth()  # 画面幅を取得
+    print(f"Screen width: {screen_width}")
+
     for subtitle in subtitles:
         if isinstance(subtitle, dict):
             comment = subtitle['comment']
