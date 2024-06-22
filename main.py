@@ -67,9 +67,12 @@ def display_subtitles(subtitles,root):
     labels = []
     yplus = 32
     for subtitle in subtitles:
-        print(subtitle['comment'])
-        label = tk.Label(frame, text=subtitle['comment'], bg="black", fg="white", font=("Arial", 24))
-        label.place(x=root.winfo_screenwidth()*10, y=yplus*forcount)  # 初期位置を設定
+        if isinstance(subtitle, dict):
+            comment = subtitle['comment']
+        else:
+            comment = subtitle
+        label = tk.Label(frame, text=comment, bg="black", fg="white", font=("Arial", 24))
+        label.place(x=root.winfo_screenwidth() + 100, y=yplus*forcount)  # 初期位置を設定
         labels.append(label)
         forcount += 1
     def move_subtitles():
