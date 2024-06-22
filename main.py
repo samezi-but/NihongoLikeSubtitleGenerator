@@ -92,6 +92,8 @@ def display_subtitles(subtitles, root):
                 x_pos = label.winfo_x() - speed 
                 label.place(x=x_pos, y=yplus*forcount)
                 forcount += 1
+                if forcount == 10:
+                    forcount = 0
             root.after(10, update_position)  # 10msごとに移動
 
         update_position()
