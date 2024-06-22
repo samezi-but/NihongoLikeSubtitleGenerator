@@ -79,10 +79,11 @@ def display_subtitles(subtitles, root):
         label = tk.Label(frame, text=comment, bg="black", fg="white", font=("Arial", 48))
         label.update_idletasks()  # ラベルのサイズを確定
         label_width = label.winfo_width()  # ラベルの幅を取得
-        random_x_start = random.randint(screen_width, screen_width + 100)
+        random_x_start = random.randint(-100, 300)
         label.place(x=screen_width + label_width + (xplus*forcount) + random_x_start, y=yplus*forcount)  # 初期位置を画面右端の外側に設定
         labels.append(label)
         forcount += 1
+
     def move_subtitles():
         speed = 15    # 字幕の移動速度
         yplus = 64
