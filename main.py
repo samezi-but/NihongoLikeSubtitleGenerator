@@ -86,8 +86,6 @@ def display_subtitles(subtitles,root):
         update_position()
 
     move_subtitles()
-    # for label in labels:
-    #     label.destroy()
 
 def main():
     global running, capture_thread
