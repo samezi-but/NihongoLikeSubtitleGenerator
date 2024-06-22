@@ -52,7 +52,7 @@ def generate_subtitles(screen_text, api_key):
 
 def setup_display():
     root = tk.Tk()
-    root.geometry("1024x800")
+    root.geometry("1400x1400")
     root.title("Transparent Window")
 
     # 透明にする色を設定
