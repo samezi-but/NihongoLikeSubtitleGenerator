@@ -98,7 +98,6 @@ def display_subtitles(subtitles, root):
             root.after(10, update_position)  # 10msごとに移動
 
         update_position()
-
     move_subtitles()
 
 def periodic_capture(root, api_key):
@@ -107,14 +106,15 @@ def periodic_capture(root, api_key):
     subtitles = generate_subtitles(screen_text, api_key)
     print("Subtitles: ", subtitles)
     display_subtitles(subtitles, root)
-    root.after(5000, periodic_capture, root, api_key)  # 5000ミリ秒後にもう一度呼び出す
+    root.after(15000, periodic_capture, root, api_key) 
+
 
 def main():
     api_key = load_api_key('apikey.txt')
     if not api_key:
         raise ValueError("API key is missing. Please provide a valid API key in 'apikey.txt'.")
     root = setup_display()
-    root.after(0, periodic_capture, root, api_key)  # 最初の呼び出し
+    root.after(0, periodic_capture, root, api_key)
     root.mainloop()
 
 if __name__ == "__main__":
