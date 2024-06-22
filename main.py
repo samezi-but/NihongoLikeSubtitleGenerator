@@ -36,7 +36,7 @@ def generate_subtitles(screen_text, api_key):
         model=parameters['engine'],
         messages=[
             {"role": "system", "content": "Make feel casual middle volume and short shout text. Generate subtitles for the screen content in Japanese language. It is one line of text. Be like niconico douga. be like brainless."},
-            {"role": "user", "content": "This is recognized screen result. Make live commentary in Japanese. make 20 messages and differents comment, export for strict JSON style. You are limited answer JSON format text only. :"+screen_text}
+            {"role": "user", "content": "This is recognized screen result. Make live commentary in Japanese. make 30 messages and differents comment, export for strict JSON style. Style use this [{'"'comment'"': '"'XXXX'"'},{'"'comment'"': '"'YYYY'"'}]You are limited answer JSON format text only. Don't say application name. :"+screen_text}
         ],
         max_tokens=parameters['max_tokens'],
         temperature=parameters['temperature'],
