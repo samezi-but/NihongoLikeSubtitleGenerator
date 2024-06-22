@@ -60,10 +60,8 @@ def setup_display():
     root.attributes("-topmost", True)
     return root
 
-def display_subtitles(subtitles,root):
-    forcount = 0  # Define forcount within the scope of the function
-
-    # 背景を透明色に設定
+def display_subtitles(subtitles, root):
+    forcount = 0
     frame = tk.Frame(root, background="black")
     frame.pack(expand=True, fill=tk.BOTH)
     labels = []
