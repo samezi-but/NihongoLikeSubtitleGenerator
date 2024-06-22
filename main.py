@@ -57,6 +57,7 @@ def setup_display():
 
     # 透明にする色を設定
     root.wm_attributes("-transparentcolor", "black")
+    root.attributes("-topmost", True)
     return root
 
 def display_subtitles(subtitles,root):
