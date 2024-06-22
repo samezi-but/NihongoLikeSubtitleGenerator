@@ -65,7 +65,8 @@ def display_subtitles(subtitles, root):
     frame = tk.Frame(root, background="black")
     frame.pack(expand=True, fill=tk.BOTH)
     labels = []
-    yplus = 32
+    yplus = 64
+    xplus = 40
     root.update_idletasks()  # これでウィンドウサイズが確定します
     screen_width = root.winfo_screenwidth()  # 画面幅を取得
     print(f"Screen width: {screen_width}")
@@ -83,10 +84,10 @@ def display_subtitles(subtitles, root):
         labels.append(label)
         forcount += 1
     def move_subtitles():
-        speed = 5    # 字幕の移動速度
-        yplus = 32
+        speed = 15    # 字幕の移動速度
+        yplus = 64
         def update_position():
-            forcount = 0  # Define forcount within the scope of the function
+            forcount = 0
             for label in labels:
                 x_pos = label.winfo_x() - speed 
                 label.place(x=x_pos, y=yplus*forcount)
