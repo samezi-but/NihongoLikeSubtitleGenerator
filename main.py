@@ -18,14 +18,11 @@ def load_api_key(file_path):
         print(f"Error: API key file '{file_path}' not found.")
         return None
 
-api_key = load_api_key('apikey.txt')
-if not api_key:
-    raise ValueError("API key is missing. Please provide a valid API key in 'apikey.txt'.")
+
 def recognize_screen_content():
-    
     return recognize_screen_content_detail()
 
-def generate_subtitles(screen_text):
+def generate_subtitles(screen_text, api_key):
     client = openai.OpenAI(api_key=api_key)
     
     parameters = {
@@ -94,11 +91,14 @@ def display_subtitles(subtitles,root):
 
 def main():
     global running, capture_thread
+    api_key = load_api_key('apikey.txt')
+    if not api_key:
+        raise ValueError("API key is missing. Please provide a valid API key in 'apikey.txt'.")
     root = setup_display()
     while running:
         print("Recognizing screen content...")
         screen_text = recognize_screen_content()
-        subtitles = generate_subtitles(screen_text)
+        subtitles = generate_subtitles(screen_text, api_key)
         print("Subtitles: ", subtitles)
         display_subtitles(subtitles,root)
         root.mainloop()
