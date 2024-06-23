@@ -35,7 +35,7 @@ def analyze_image(file_path):
                 "content": [
                     {
                     "type": "text",
-                    "text": "explain in this image. 1line, no markdown"
+                    "text": "This is PC desktop screenshot. Don't exlain tab count. explain in this image more detail. 1line, no markdown"
                     },
                     {
                     "type": "image_url",
@@ -46,7 +46,7 @@ def analyze_image(file_path):
                 ]
                 }
             ],
-            "max_tokens": 300
+            "max_tokens": 2048
         }
         response = requests.post(api_endpoint, headers=headers, json=payload)
 
@@ -68,7 +68,7 @@ def recognize_screen_content_detail():
 
     # 結果の出力
     if analysis_result:
-        print("Analysis Result: ", analysis_result)
+        print("Analysis Result: ", analysis_result['choices'][0]['message']['content'])
         return analysis_result['choices'][0]['message']['content']
     else:
         return None
