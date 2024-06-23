@@ -29,14 +29,15 @@ def generate_subtitles(screen_text, api_key):
     parameters = {
         'engine': 'gpt-4o',
         'max_tokens': 1024,
-        'temperature': 0.5,
+        'temperature': 0.35,
         'stop': None
     }
+    message_count = 50
     response = client.chat.completions.create(
         model=parameters['engine'],
         messages=[
             {"role": "system", "content": "Make feel casual middle volume and short shout text. Generate subtitles for the screen content in Japanese language. It is one line of text. Be like niconico douga. be like brainless."},
-            {"role": "user", "content": "This is recognized screen result. Make live commentary in Japanese. make 30 messages and differents comment, export for strict JSON style. Style use this [{'"'comment'"': '"'XXXX'"'},{'"'comment'"': '"'YYYY'"'}]You are limited answer JSON format text only. Don't say application name. :"+screen_text}
+            {"role": "user", "content": "This is recognized screen result. Make live commentary in Japanese. make "+ str(message_count) +" messages and differents comment, export for strict JSON style. Insert meanless meme word. Style use this [{'"'comment'"': '"'XXXX'"'},{'"'comment'"': '"'YYYY'"'}]You should limited answer JSON format text only. Don't say application name. :"+screen_text}
         ],
         max_tokens=parameters['max_tokens'],
         temperature=parameters['temperature'],
@@ -58,16 +59,17 @@ def setup_display():
     # 透明にする色を設定
     root.wm_attributes("-transparentcolor", "black")
     root.attributes("-topmost", True)
+    frame = tk.Frame(root, background="black")
+    frame.pack(expand=True, fill=tk.BOTH)
+    root.frame = frame
+    root.update_idletasks()  # これでウィンドウサイズが確定します
     return root
 
 def display_subtitles(subtitles, root):
     forcount = 0
-    frame = tk.Frame(root, background="black")
-    frame.pack(expand=True, fill=tk.BOTH)
     labels = []
     yplus = 64
     xplus = 40
-    root.update_idletasks()  # これでウィンドウサイズが確定します
     screen_width = root.winfo_screenwidth()  # 画面幅を取得
     print(f"Screen width: {screen_width}")
 
@@ -76,29 +78,33 @@ def display_subtitles(subtitles, root):
             comment = subtitle['comment']
         else:
             comment = subtitle
-        label = tk.Label(frame, text=comment, bg="black", fg="white", font=("Arial", 48))
+        label = tk.Label(root.frame, text=comment, bg="black", fg="white", font=("Arial", 48))
         label.update_idletasks()  # ラベルのサイズを確定
         label_width = label.winfo_width()  # ラベルの幅を取得
-        random_x_start = random.randint(-100, 300)
+        random_x_start = random.randint(-100, 2000)
         label.place(x=screen_width + label_width + (xplus*forcount) + random_x_start, y=yplus*forcount)  # 初期位置を画面右端の外側に設定
         labels.append(label)
         forcount += 1
 
     def move_subtitles():
-        speed = 15    # 字幕の移動速度
+        speed = 40    # 字幕の移動速度
         yplus = 64
         def update_position():
-            forcount = 0
+            forcount2 = 0
             for label in labels:
                 x_pos = label.winfo_x() - speed 
-                label.place(x=x_pos, y=yplus*forcount)
-                forcount += 1
-                if forcount == 10:
-                    forcount = 0
-            root.after(10, update_position)  # 10msごとに移動
+                label.place(x=x_pos, y=yplus*forcount2)
+                forcount2 += 1
+                if forcount2 == 10:
+                    forcount2 = 0
+            root.after(50, update_position)
 
         update_position()
     move_subtitles()
+    for label in labels:
+        if label.winfo_x() < -root.winfo_width():
+            labels.remove(label)
+            label.destroy()
 
 def periodic_capture(root, api_key):
     print("Recognizing screen content...")
