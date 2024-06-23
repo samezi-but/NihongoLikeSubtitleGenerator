@@ -111,7 +111,10 @@ def periodic_capture(root, api_key):
     print("Recognizing screen content...")
     screen_text = recognize_screen_content()
     subtitles = generate_subtitles(screen_text, api_key)
-    print("Subtitles: ", subtitles)
+    if subtitles == None:
+        print("Error: Failed to generate subtitles.")
+        root.after(1000, periodic_capture, root, api_key) 
+        return
     display_subtitles(subtitles, root)
     root.after(15000, periodic_capture, root, api_key) 
 
