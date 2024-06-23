@@ -48,7 +48,8 @@ def generate_subtitles(screen_text, api_key):
         subtitles = json.loads(response.choices[0].message.content.strip("```").strip("json"))
     except json.JSONDecodeError as e:
         print(f"JSONDecodeError: {e}")
-        return generate_subtitles(screen_text, api_key)
+        return None
+    print("JSON parsed successfully.")
     return subtitles
 
 def setup_display():
