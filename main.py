@@ -31,7 +31,12 @@ def generate_subtitles(screen_text, api_key):
         'temperature': 0.35,
         'stop': None
     }
+
+    if screen_text == None:
+        print("Error: Failed to recognize screen content.")
+        return None
     message_count = 50
+
     response = client.chat.completions.create(
         model=parameters['engine'],
         messages=[
