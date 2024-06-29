@@ -59,8 +59,8 @@ def generate_subtitles(screen_text, api_key):
 
 def setup_display():
     root = tk.Tk()
-    root.geometry("1400x1400")
-    root.title("Transparent Window")
+    root.geometry("1400x1200")
+    root.title("Comment Window")
 
     # 透明にする色を設定
     root.wm_attributes("-transparentcolor", "black")
@@ -93,13 +93,13 @@ def display_subtitles(subtitles, root):
         forcount += 1
 
     def move_subtitles():
-        speed = 40    # 字幕の移動速度
+        speed = 40  # 字幕の移動速度
         yplus = 64
         def update_position():
             forcount2 = 0
             for label in labels:
                 x_pos = label.winfo_x() - speed 
-                label.place(x=x_pos, y=yplus*forcount2)
+                label.place(x=x_pos, y=yplus * forcount2)
                 forcount2 += 1
                 if forcount2 == 10:
                     forcount2 = 0
