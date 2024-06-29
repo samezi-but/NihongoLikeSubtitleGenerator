@@ -11,8 +11,8 @@ def load_api_key(file_path):
         return None
     
 # スクリーンショットを取得し、ファイルに保存する関数
-def take_screenshot(file_path):
-    screenshot = ImageGrab.grab()
+def take_screenshot(file_path,x, y, width, height):
+    screenshot = ImageGrab.grab(bbox=(x,y+30,x+width,y+height))
     screenshot.save(file_path, 'JPEG')
 
 # Vision API を呼び出して画像を分析する関数
@@ -57,11 +57,11 @@ def analyze_image(file_path):
         print(f"Error: {response.status_code}")
         return None
 
-def recognize_screen_content_detail():
+def recognize_screen_content_detail(x, y, width, height):
     screenshot_file = "screenshot.jpg"
     
     # スクリーンショットの取得と保存
-    take_screenshot(screenshot_file)
+    take_screenshot(screenshot_file,x, y, width, height)
     
     # スクリーンショットの分析
     analysis_result = analyze_image(screenshot_file)
