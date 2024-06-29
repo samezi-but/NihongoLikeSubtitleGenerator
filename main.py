@@ -42,9 +42,10 @@ def generate_subtitles(screen_text, api_key):
         temperature=parameters['temperature'],
         stop=parameters['stop']
     )
-    print(response.choices[0].message.content.strip())
+    print(response.choices[0].message.content)
+    content = response.choices[0].message.content.replace("'",'"')
     try:
-        subtitles = json.loads(response.choices[0].message.content.strip("```").strip("json"))
+        subtitles = json.loads(content.strip("```").strip("json"))
     except json.JSONDecodeError as e:
         print(f"JSONDecodeError: {e}")
         return None
