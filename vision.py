@@ -16,10 +16,9 @@ def take_screenshot(file_path,x, y, width, height):
     screenshot.save(file_path, 'JPEG')
 
 # Vision API を呼び出して画像を分析する関数
-def analyze_image(file_path):
+def analyze_image(file_path, api_key):
     # 仮のAPIエンドポイントとAPIキー
     api_endpoint = "https://api.openai.com/v1/chat/completions"
-    api_key = load_api_key('apikey.txt')
 
     with open(file_path, 'rb') as img_file:
         image_code =base64.b64encode(img_file.read()).decode('utf-8')
@@ -35,7 +34,7 @@ def analyze_image(file_path):
                 "content": [
                     {
                     "type": "text",
-                    "text": "This is PC desktop screenshot. Don't exlain tab count. explain in this image more detail. 1line, no markdown"
+                    "text": "This is PC desktop screenshot. Don't exlain tab count. explain in this image more detail. 1line, no markdown, read text."
                     },
                     {
                     "type": "image_url",
@@ -57,14 +56,14 @@ def analyze_image(file_path):
         print(f"Error: {response.status_code}")
         return None
 
-def recognize_screen_content_detail(x, y, width, height):
+def recognize_screen_content_detail(x, y, width, height, api_key):
     screenshot_file = "screenshot.jpg"
     
     # スクリーンショットの取得と保存
     take_screenshot(screenshot_file,x, y, width, height)
     
     # スクリーンショットの分析
-    analysis_result = analyze_image(screenshot_file)
+    analysis_result = analyze_image(screenshot_file, api_key)
 
     # 結果の出力
     if analysis_result:

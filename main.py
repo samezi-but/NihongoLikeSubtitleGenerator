@@ -19,12 +19,12 @@ def load_api_key(file_path):
         print(f"Error: API key file '{file_path}' not found.")
         return None
 
-def recognize_screen_content(x, y, width, height):
-    return vision.recognize_screen_content_detail(x, y, width, height)
+def recognize_screen_content(x, y, width, height, api_key):
+    return vision.recognize_screen_content_detail(x, y, width, height, api_key)
 
 def periodic_capture(root, api_key):
     print("Recognizing screen content...")
-    screen_text = recognize_screen_content(root.winfo_x(), root.winfo_y(), root.winfo_width(), root.winfo_height())
+    screen_text = recognize_screen_content(root.winfo_x(), root.winfo_y(), root.winfo_width(), root.winfo_height(),api_key)
     return_subtitles = subtitles.generate_subtitles(screen_text, api_key)
     if return_subtitles == None:
         print("Error: Failed to generate subtitles.")
