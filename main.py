@@ -19,9 +19,8 @@ def load_api_key(file_path):
         print(f"Error: API key file '{file_path}' not found.")
         return None
 
-
-def recognize_screen_content():
-    return recognize_screen_content_detail()
+def recognize_screen_content(x, y, width, height):
+    return recognize_screen_content_detail(x, y, width, height)
 
 def generate_subtitles(screen_text, api_key):
     client = openai.OpenAI(api_key=api_key)
@@ -83,7 +82,7 @@ def display_subtitles(subtitles, root):
         label.update_idletasks()  # ラベルのサイズを確定
         label_width = label.winfo_width()  # ラベルの幅を取得
         random_x_start = random.randint(-100, 2000)
-        label.place(x=screen_width + label_width + (xplus*forcount) + random_x_start, y=yplus*forcount)  # 初期位置を画面右端の外側に設定
+        label.place(x=screen_width + label_width + (xplus * forcount) + random_x_start, y=yplus * forcount)  # 初期位置を画面右端の外側に設定
         labels.append(label)
         forcount += 1
 
@@ -109,7 +108,7 @@ def display_subtitles(subtitles, root):
 
 def periodic_capture(root, api_key):
     print("Recognizing screen content...")
-    screen_text = recognize_screen_content()
+    screen_text = recognize_screen_content(root.winfo_x(), root.winfo_y(), root.winfo_width(), root.winfo_height())
     subtitles = generate_subtitles(screen_text, api_key)
     if subtitles == None:
         print("Error: Failed to generate subtitles.")
