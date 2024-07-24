@@ -1,5 +1,5 @@
 # NihongoLikeSubtitleGenerator
-[yes](main.png)
+![Top image](main.png)
 OpenAIのVisionとGPTシリーズを利用し、画面を流れるデスクトップ実況コメントを生成するツールです。
 まだ不具合があるかも知れません。
 
